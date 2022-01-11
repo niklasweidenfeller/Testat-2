@@ -10,38 +10,48 @@ public class Client {
 
 
     public static void main(String[] args) {
-        BufferedReader networkIn = null;
-        PrintWriter networkOut = null;
-        BufferedReader userIn = null;
-        Socket socket = null;
+        BufferedReader networkIn = null; // für Antworten des Servers
+        PrintWriter networkOut = null;   // für Anfragen zum Server
+        BufferedReader userIn = null;    // für Nutzereingaben
+        Socket socket = null;            // der Socket zum Server
 
         while (true) {
+            System.out.println("\n========================");
             System.out.println("Enter a command:");
             try {
+                // Nutzereingabe
                 userIn = new BufferedReader(new InputStreamReader(System.in));
                 String command = userIn.readLine();
+
+                // Austritt aus der Endlosschleife
                 if (command.equals(".")) { break; }
 
+                // Verbindung zum Server aufbauen
                 socket = new Socket(serverHostname, serverPort);
-                System.out.println("\nConnected to Server: " + serverHostname + ":" + serverPort + "\n");
+                System.out.println("Connected to Server: " + serverHostname + ":" + serverPort);
+                System.out.println("========================");
 
+                // Netzwerkeingabe und -ausgabe initialisieren 
                 networkIn = new BufferedReader(
                     new InputStreamReader(socket.getInputStream())
                 );
                 networkOut = new PrintWriter(socket.getOutputStream());
 
+                /* Kommando in den Output schreiben,
+                   dann mittels flush() versenden. */
                 networkOut.println(command);
                 networkOut.flush();
 
-                System.out.println("Response from server: " + networkIn.readLine());
+                String response = networkIn.readLine(); // auf eine Antwort des Servers warten.
+                System.out.println("Response from Server: " + response);
                 System.out.println("========================\n");
 
-
             } catch (IOException e) {
-                System.out.println("Error connecting to the server: " + e.getMessage());
+                System.out.println("Could not connect to the Server: " + e.getMessage());
                 break;
             }
         }
+        // Aufräumen
         try {
             if (networkIn != null) networkIn.close();
             if (networkOut != null) networkOut.close();

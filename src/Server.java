@@ -40,14 +40,21 @@ public class Server {
                     networkOut = new PrintWriter(s.getOutputStream());                         // ausgehende Nachrichten an den Client
 
                     String clientRequest = networkIn.readLine(); // eingehende Anfrage des Clients
+                    String command = "", requestBody = "", response = "";
 
-                    // Kommando (GET/SAVE) von Rest der Nachricht trennen
-                    String[] splitRequest = clientRequest.split(" ");
-                    String command = splitRequest[0].toUpperCase(); // das Kommando
-                    String requestBody = getRequestBodyFromSplitString(splitRequest); // der Rest der Nachricht
+                    if (clientRequest != null) {
+
+                        // Kommando (GET/SAVE) von Rest der Nachricht trennen
+                        /* Falls ein leerer String gesendet wird:
+                           split(" ") gibt ein Array mit einem Eintrag ("")
+                           zurück. getRequestBodyFromSplitString() ergibt "".
+                           switch(command) springt in den default-Teil. */
+                       String[] splitRequest = clientRequest.split(" ");
+                       command = splitRequest[0].toUpperCase(); // das Kommando
+                       requestBody = getRequestBodyFromSplitString(splitRequest); // der Rest der Nachricht
+                    }
 
                     // Das Kommando interpretieren
-                    String response = "";
                     switch(command) {
                         case SAVE:
                             response = saveTextWithKey(requestBody);    // Verarbeiten der SAVE-Anfrage

@@ -12,7 +12,8 @@ public class Client {
     public static void main(String[] args) {
         BufferedReader networkIn = null; // für Antworten des Servers
         PrintWriter networkOut = null;   // für Anfragen zum Server
-        BufferedReader userIn = null;    // für Nutzereingaben
+        BufferedReader userIn            // für Nutzereingaben
+            = new BufferedReader(new InputStreamReader(System.in));
         Socket socket = null;            // der Socket zum Server
 
         while (true) {
@@ -20,9 +21,11 @@ public class Client {
             System.out.println("Enter a command:");
             try {
                 // Nutzereingabe
-                userIn = new BufferedReader(new InputStreamReader(System.in));
                 String command = userIn.readLine();
-
+                if (command == null) {
+                    System.out.println("Invalid input");
+                    continue;
+                }
                 // Austritt aus der Endlosschleife
                 if (command.equals(".")) { break; }
 

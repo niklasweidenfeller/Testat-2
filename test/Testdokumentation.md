@@ -293,3 +293,28 @@ Enter a command:
 SAVE test
 Could not connect to the Server: Connection refused: connect: localhost:7777
 ```
+
+### `userIn.readLine()` ergibt `null`
+```
+========================
+Enter a command:
+a
+Invalid input
+
+========================
+Enter a command:
+```
+
+### `clientRequest` / `networkIn.readLine()` ergibt `null`
+```
+========================
+Client-request received
+========================
+Client port: 63674
+Command:
+Request Body:
+
+========================
+Sending response: BAD REQUEST
+========================
+```

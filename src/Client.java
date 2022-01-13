@@ -58,8 +58,8 @@ public class Client {
         try {
             if (networkIn != null) networkIn.close();
             if (networkOut != null) networkOut.close();
-            if (userIn != null) userIn.close();
             if (socket != null) socket.close();
-        } catch (IOException e) {}
+            userIn.close();
+        } catch (IOException ignored) {}
     }
 }

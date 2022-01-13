@@ -40,7 +40,7 @@ public class Server {
                     networkOut = new PrintWriter(s.getOutputStream());                         // ausgehende Nachrichten an den Client
 
                     String clientRequest = networkIn.readLine(); // eingehende Anfrage des Clients
-                    String command = "", requestBody = "", response = "";
+                    String command = "", requestBody = "", response;
 
                     if (clientRequest != null) {
 
@@ -80,7 +80,7 @@ public class Server {
 
                     networkOut.println(response); // Antwort in den Output schreiben
                     networkOut.flush();           // Output verschicken
-                } catch (IOException e) {
+                } catch (IOException ignored) {
                 } finally {
                     // Ressourcen der Verbindung aufräumen
                     if (s != null) s.close();
@@ -94,7 +94,7 @@ public class Server {
             try {
                 // Ressourcen des Servers aufräumen
                 if (server != null) server.close();
-            } catch (IOException e) {}
+            } catch (IOException ignored) {}
         }
     }
 
@@ -123,7 +123,7 @@ public class Server {
             try {
                 if (bufferedFileReader != null)
                     bufferedFileReader.close();
-            } catch (IOException e) {}
+            } catch (IOException ignored) {}
         }
     }
 
@@ -153,14 +153,14 @@ public class Server {
      * @return             Die zusammengefügte Nachricht.
      */
     private static String getRequestBodyFromSplitString(String[] splitRequest) {
-        String message = "";
+        StringBuilder message = new StringBuilder();
         // erstes Element des Arrays (Kommando) überspringen
         for (int i = 1; i < splitRequest.length; i++) {
-            message += splitRequest[i];
+            message.append(splitRequest[i]);
             if (i != (splitRequest.length-1)) {
-                message += " ";
+                message.append(" ");
             }
         }
-        return message;
+        return message.toString();
     }
 }

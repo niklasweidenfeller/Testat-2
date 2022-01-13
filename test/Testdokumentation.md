@@ -318,3 +318,24 @@ Request Body:
 Sending response: BAD REQUEST
 ========================
 ```
+### Client sendet leeren String
+```
+========================
+Enter a command:
+
+Connected to Server: localhost:7777
+========================
+Response from Server: BAD REQUEST
+========================
+```
+
+### Client sended `" "` (ein Space)
+```
+========================
+Enter a command:
+
+Connected to Server: localhost:7777
+========================
+Response from Server: BAD REQUEST
+========================
+```

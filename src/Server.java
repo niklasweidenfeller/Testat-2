@@ -50,8 +50,10 @@ public class Server {
                            zurück. getRequestBodyFromSplitString() ergibt "".
                            switch(command) springt in den default-Teil. */
                        String[] splitRequest = clientRequest.split(" ");
-                       command = splitRequest[0].toUpperCase(); // das Kommando
-                       requestBody = getRequestBodyFromSplitString(splitRequest); // der Rest der Nachricht
+                       if (splitRequest.length != 0) { // Arrayzugriff auf leerem Array unterbinden (falls " " gesendet wird)
+                            command = splitRequest[0].toUpperCase(); // das Kommando
+                            requestBody = getRequestBodyFromSplitString(splitRequest); // der Rest der Nachricht
+                       }
                     }
 
                     // Das Kommando interpretieren

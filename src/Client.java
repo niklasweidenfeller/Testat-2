@@ -5,9 +5,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Client {
+
     private static final String serverHostname = "localhost";
     private static final int serverPort = 7777;  
-
 
     public static void main(String[] args) {
         BufferedReader networkIn = null; // für Antworten des Servers

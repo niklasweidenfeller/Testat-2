@@ -83,8 +83,9 @@ public class Server {
                 } finally {
                     // Ressourcen der Verbindung aufräumen
                     if (networkIn != null) networkIn.close();
+                    // close() verschickt Inahlt des OutputStream
                     if (networkOut != null) networkOut.close();
-                    if (s != null) s.close(); // close() verschickt Inahlt des OutputStream
+                    if (s != null) s.close();
                 }
             } // end while
         } catch (IOException e) {

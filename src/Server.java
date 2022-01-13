@@ -79,13 +79,12 @@ public class Server {
                     System.out.println("========================\n");
 
                     networkOut.println(response); // Antwort in den Output schreiben
-                    networkOut.flush();           // Output verschicken
                 } catch (IOException ignored) {
                 } finally {
                     // Ressourcen der Verbindung aufräumen
-                    if (s != null) s.close();
                     if (networkIn != null) networkIn.close();
                     if (networkOut != null) networkOut.close();
+                    if (s != null) s.close();
                 }
             } // end while
         } catch (IOException e) {

@@ -52,13 +52,17 @@ public class Client {
             } catch (IOException e) {
                 System.out.println("Could not connect to the Server: " + e.getMessage());
                 break;
+            } finally {
+                // Aufräumen
+                try {
+                    if (networkIn != null) networkIn.close();
+                    if (networkOut != null) networkOut.close();
+                    if (socket != null) socket.close();
+                } catch (IOException ignored) {}
             }
         }
         // Aufräumen
         try {
-            if (networkIn != null) networkIn.close();
-            if (networkOut != null) networkOut.close();
-            if (socket != null) socket.close();
             userIn.close();
         } catch (IOException ignored) {}
     }
